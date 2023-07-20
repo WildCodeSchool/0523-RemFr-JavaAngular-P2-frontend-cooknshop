@@ -1,0 +1,139 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-share {
+    display: flex;
+    align-items: center;
+    position: fixed;
+}
+
+@media (min-width: 769px) {
+    .container>* {
+        width: 40%;
+    }
+
+    li {
+        padding: 0px 25px 0px 25px;
+    }
+
+    .div-share {
+        bottom: 40px;
+        right: 60px;
+        width: auto !important;
+    }
+
+    .shared {
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container>* {
+        width: 90%;
+    }
+
+    ul {
+        padding: 10px;
+    }
+
+    li {
+        padding: 0px 15px 0px 15px;
+    }
+
+    .div-share {
+        flex-direction: column;
+        bottom: 40px;
+        width: auto !important;
+    }
+
+    .shared {
+        margin-bottom: 10px;
+    }
+}
+
+
+li {
+    display: flex;
+    list-style: none;
+    border: solid 1px #C2C2C2;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    width: 30px;
+}
+
+img {
+    width: 25px;
+}
+
+li>button {
+    border: none;
+    background: none;
+}
+
+h3 {
+    text-align: center;
+}
+
+.btn-share {
+    padding: 20px;
+    border: none;
+    background-color: #FF6F61;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 1rem;
+    width: auto !important;
+    display: flex;
+    align-items: center;
+
+}
+
+.btn-share>img {
+    padding-left: 15px;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #c2c2c2;
+    outline: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 50%);
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: solid 1px #777777;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: translateX(100%);
+    border: solid 1px #777777;
+    background: #ffffff;
+}
+
+input[type="checkbox"]:checked {
+    background: #FF6F61;
+}
+
+ul {
+    padding-bottom: 200px;
+}

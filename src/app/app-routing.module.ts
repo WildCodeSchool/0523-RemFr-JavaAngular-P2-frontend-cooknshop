@@ -1,8 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DemoPageComponent } from './pages/demo/demo.component';
+import { AccueilComponent } from './pages/accueil/accueil.component';
+import { RechercheComponent } from './pages/recherche/recherche.component';
+import { NewRecetteComponent } from './pages/new-recette/new-recette.component';
+import { ConnexionComponent } from './pages/connexion/connexion.component';
+import { InscriptionComponent } from './pages/inscription/inscription.component';
+import { DetailsRecetteComponent } from './pages/details-recette/details-recette.component';
+import { PanierRecettesComponent } from './pages/panier-recettes/panier-recettes.component';
+import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.component';
 
-const routes: Routes = [{ path: '', component: DemoPageComponent }];
+const routes: Routes = [
+  { path: '', component: AccueilComponent },
+  { path: 'recherche', component: RechercheComponent},
+  { path: 'nouvelle-recette', component: NewRecetteComponent},
+  { path: 'connexion', component: ConnexionComponent},
+  { path: 'inscription', component: InscriptionComponent},
+  { path: 'details-recette', component: DetailsRecetteComponent},
+  { path: 'panier-recettes', component: PanierRecettesComponent},
+  { path: 'liste-courses', component: ListeCoursesComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
