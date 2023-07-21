@@ -1,32 +1,50 @@
 <h2>Recettes pour vous :</h2>
 
 <div class="div-liste">
-
-    <!--NgFor ici-->
-    <div class="div-recettes">
-        <img src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp" routerLink="/details-recette">
-        <div class="div-title-desc"  routerLink="/details-recette">
-            <h3>Titre de la recette</h3>
-            <p>Une description pour cette recette</p>
-        </div>
-        <div class="boutton-fav">
-            <app-boutton-fav></app-boutton-fav>
-        </div>
+  <!--NgFor ici-->
+  <!-- <div class="div-recettes">
+    <img
+      src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp"
+      routerLink="/details-recette"
+    />
+    <div class="div-title-desc" routerLink="/details-recette">
+      <h3>Titre de la recette</h3>
+      <p>Une description pour cette recette</p>
     </div>
-
-    <div class="div-recettes">
-        <img src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp" routerLink="/details-recette">
-        <div class="div-title-desc"  routerLink="/details-recette">
-            <h3>Titre de la recette</h3>
-            <p>Une description pour cette recette</p>
-        </div>
-        <div class="boutton-fav">
-            <app-boutton-fav></app-boutton-fav>
-        </div>
+    <div class="boutton-fav">
+      <app-boutton-fav></app-boutton-fav>
     </div>
+  </div>
 
+  <div class="div-recettes">
+    <img
+      src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp"
+      routerLink="/details-recette"
+    />
+    <div class="div-title-desc" routerLink="/details-recette">
+      <h3>Titre de la recette</h3>
+      <p>Une description pour cette recette</p>
+    </div>
+    <div class="boutton-fav">
+      <app-boutton-fav></app-boutton-fav>
+    </div>
+  </div> -->
+
+  <div *ngFor="let recipe of allRecipes; let i = index">
+    <div class="div-recettes">
+      <img
+        src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp"
+        routerLink="/details-recette"
+      />
+      <div class="div-title-desc" routerLink="/details-recette/{{ recipe.id }}">
+        <h3>{{ recipe.title }}</h3>
+        <p>{{ recipe.recipeCategories[0].name }}</p>
+      </div>
+      <div class="boutton-fav">
+        <app-boutton-fav></app-boutton-fav>
+      </div>
+    </div>
+  </div>
 </div>
+
 <app-boutton-new-recette></app-boutton-new-recette>
-
-
-

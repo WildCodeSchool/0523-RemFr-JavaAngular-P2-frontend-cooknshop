@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { RechercheComponent } from './pages/recherche/recherche.component';
 import { NewRecetteComponent } from './pages/new-recette/new-recette.component';
@@ -11,13 +12,13 @@ import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.compo
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
-  { path: 'recherche', component: RechercheComponent},
-  { path: 'nouvelle-recette', component: NewRecetteComponent},
-  { path: 'connexion', component: ConnexionComponent},
-  { path: 'inscription', component: InscriptionComponent},
-  { path: 'details-recette', component: DetailsRecetteComponent},
-  { path: 'panier-recettes', component: PanierRecettesComponent},
-  { path: 'liste-courses', component: ListeCoursesComponent}
+  { path: 'recherche', component: RechercheComponent },
+  { path: 'nouvelle-recette', component: NewRecetteComponent },
+  { path: 'connexion', component: ConnexionComponent },
+  { path: 'inscription', component: InscriptionComponent },
+  { path: 'details-recette/:id', component: DetailsRecetteComponent },
+  { path: 'panier-recettes', component: PanierRecettesComponent },
+  { path: 'liste-courses', component: ListeCoursesComponent },
 ];
 
 @NgModule({
