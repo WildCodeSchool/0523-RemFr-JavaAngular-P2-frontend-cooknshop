@@ -1,0 +1,57 @@
+<h3>Créer votre recette</h3>
+<div class="div-form-recette">
+  <p class="new-recette">Nouvelle recette :</p>
+  <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+    <label for="titre">Titre</label>
+    <input formControlName="titre" id="titre" type="text" placeholder="Ex : Tarte aux fraises">
+
+    <label for="difficulty">Difficulté</label>
+    <select formControlName="difficulty" id="difficulty">
+      <option value="EASY">Facile</option>
+      <option value="MODERATE">Modérée</option>
+      <option value="HARD">Difficile</option>
+    </select>
+
+    <label for="budget">Budget</label>
+    <select formControlName="budget" id="budget">
+      <option value="CHEAP">Bon marché</option>
+      <option value="MODERATE">Modéré</option>
+      <option value="EXPENSIVE">Coûteux</option>
+    </select>
+
+    <label>Liste d'ingrédients</label>
+    <button class="btn-add" type="button" (click)="ajouterIngredient()">Ajouter ingrédient<img src="assets/plus2.png" alt="Button Image"></button>
+
+    <div formArrayName="ingredients">
+      <div class="instructions" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
+        <input formControlName="nom" type="text" placeholder="Nom ingrédient">
+        <input formControlName="quantite" type="text" placeholder="Qté">
+        <input formControlName="unite" type="text" placeholder="Unité">
+        <button class="btn-supr" type="button" (click)="supprimerIngredient(i)">Supprimer<img src="assets/delete.png" alt="Button Image"></button>
+      </div>
+    </div>
+
+    <label for="prepTime">Temps de préparation</label>
+    <input formControlName="prepTime" id="prepTime" type="text" placeholder="Ex : 30 min">
+
+    <label for="cookTime">Temps de cuisson</label>
+    <input formControlName="cookTime" id="cookTime" type="text" placeholder="Ex : 45 min">
+
+    <label for="imageLink">Lien vers l'image</label>
+    <input formControlName="imageLink" id="imageLink" type="text" placeholder="URL de l'image">
+
+    <label>Instructions de préparation :</label>
+    <button class="btn-add" type="button" (click)="ajouterEtape()">Ajouter une étape de préparation<img src="assets/plus2.png" alt="Button Image"></button>
+
+    <div formArrayName="instructions">
+      <div class="instructions" *ngFor="let etape of instructions.controls; let i = index" [formGroupName]="i">
+        <label>Étape N°</label>
+        <input formControlName="numero" type="number" placeholder="Numéro" min="1"  max="30">
+        <textarea formControlName="description" placeholder="Description de l'étape"></textarea>
+        <button class="btn-supr" type="button" (click)="supprimerEtape(i)">Supprimer<img src="assets/delete.png" alt="Button Image"></button>
+      </div>
+    </div>
+
+    <button class="btn-enregistrement" type="submit">Créer la recette<img src="assets/plus.png" alt="Button Image"></button>
+  </form>
+</div>
