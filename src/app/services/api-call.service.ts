@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ApiCallService {
   constructor(private httpClient: HttpClient) {}
 
-  public GetRecipes(): Observable<any> {
-    return this.httpClient.get<any>('http://localhost:8080/recipes');
+  public GetResponse(customURI: string): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:8080/${customURI}`);
   }
 }

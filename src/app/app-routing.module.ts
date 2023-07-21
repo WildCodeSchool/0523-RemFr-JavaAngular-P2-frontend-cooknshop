@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'nouvelle-recette', component: NewRecetteComponent },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
-  { path: 'details-recette', component: DetailsRecetteComponent },
+  { path: 'details-recette/:id', component: DetailsRecetteComponent },
   { path: 'panier-recettes', component: PanierRecettesComponent },
   { path: 'liste-courses', component: ListeCoursesComponent },
 ];
