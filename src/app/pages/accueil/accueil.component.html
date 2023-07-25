@@ -32,10 +32,7 @@
 
   <div *ngFor="let recipe of allRecipes; let i = index">
     <div class="div-recettes">
-      <img
-        src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp"
-        routerLink="/details-recette"
-      />
+      <img src="{{ recipe.imageLink }}" routerLink="/details-recette" />
       <div class="div-title-desc" routerLink="/details-recette/{{ recipe.id }}">
         <h3>{{ recipe.title }}</h3>
         <p>{{ recipe.recipeCategories[0].name }}</p>

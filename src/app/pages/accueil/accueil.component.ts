@@ -17,6 +17,8 @@ export class AccueilComponent {
 
   initRecipes() {
     this.ApiCallService.GetResponse('recipes').subscribe((data: any) => {
+      console.log(this.allCategories);
+      console.log(data);
       this.allRecipes = data;
       for (let i = 0; i < data.length; i++) {
         if (data[i].recipeCategories[0].id != undefined && data[i].recipeCategories[0].name != undefined) {
@@ -33,8 +35,6 @@ export class AccueilComponent {
           };
         }
       }
-      // console.log(this.allCategories);
-      // console.log(data);
     });
   }
 }

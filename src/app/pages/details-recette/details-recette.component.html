@@ -1,22 +1,24 @@
 <div class="container">
   <div class="presentation">
     <h3>{{ myRecipe.title }}</h3>
-    <img src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp" />
+    <img src="{{ myRecipe.imageLink }}" />
     <div class="recette-details">
-      <p>45 min</p>
-      <p>Facile</p>
-      <p>Moyen</p>
+      <p>{{ myRecipe.prepTime * 60 }} min</p>
+      <p *ngIf="myRecipe.budget === 'CHEAP'">Petit Prix</p>
+      <p *ngIf="myRecipe.budget === 'MODERATE'">Budget Modéré</p>
+      <p *ngIf="myRecipe.budget === 'EXPENSIVE'">Gros Budget</p>
+      <p *ngIf="myRecipe.difficulty === 'EASY'">Facile</p>
+      <p *ngIf="myRecipe.difficulty === 'MODERATE'">Moyen</p>
+      <p *ngIf="myRecipe.difficulty === 'HARD'">Difficile</p>
     </div>
   </div>
 
   <div class="list-ingredients">
     <h3>Liste des ingrédients</h3>
     <ul>
-      <li>Farine : 100g</li>
-      <li>Sucre : 200g</li>
-      <li>Jaune d'oeuf : 4 unité</li>
-      <li>Lait : 1L</li>
-      <li>Fraises : 500g</li>
+      <li *ngFor="let ingredient of myRecipe.recipeIngredient; let i = index">
+        {{ ingredient.ingredient.name }} : {{ ingredient.quantity }} {{ ingredient.unit.name }}
+      </li>
     </ul>
     <label for="">Nombre de personnes :</label>
     <input type="number" value="1" min="1" max="30" />
@@ -25,7 +27,11 @@
   <div class="step">
     <h3>Préparation</h3>
     <ul>
-      <li>
+      <li *ngFor="let step of myRecipe.stepList; let i = index">
+        <h4>Étape N°{{ i + 1 }}</h4>
+        <p>{{ step.description }}</p>
+      </li>
+      <!-- <li>
         <H4>Étape N°1</H4>
         <p>
           Commencez par préparer la crème. Mélangez les jaunes d'oeuf avec le sucre. Battez au fouet jusqu'à ce que le
@@ -48,7 +54,7 @@
           Cassez l’œuf par dessus et rajoutez le beurre coupé en morceaux. Rassemblez et malaxez pour faire une boule.
           Placez votre boule de pâte dans un film plastique et mettez la au frais 10min.
         </p>
-      </li>
+      </li> -->
     </ul>
   </div>
   <button>Ajouter au panier</button>
