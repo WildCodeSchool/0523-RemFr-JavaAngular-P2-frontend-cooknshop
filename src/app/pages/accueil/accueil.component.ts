@@ -20,8 +20,6 @@ export class AccueilComponent {
       this.allRecipes = data;
       for (let i = 0; i < data.length; i++) {
         if (data[i].recipeCategories[0].id != undefined && data[i].recipeCategories[0].name != undefined) {
-          console.log(data[i].recipeCategories[0].id);
-          console.log(data[i].recipeCategories[0].name);
           const key = data[i].recipeCategories[0].id;
           const value = data[i].recipeCategories[0].name;
           this.allCategories[key] = value;
@@ -33,8 +31,6 @@ export class AccueilComponent {
           };
         }
       }
-      // console.log(this.allCategories);
-      // console.log(data);
     });
   }
 }
