@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +24,9 @@ import { DetailsRecetteComponent } from './pages/details-recette/details-recette
 import { PanierRecettesComponent } from './pages/panier-recettes/panier-recettes.component';
 import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.component';
 
+import { ToastrModule } from 'ngx-toastr';
+import { provideToastr } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,15 +47,19 @@ import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.compo
     ListeCoursesComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(), // ToastrModule added
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
   ],
 
-  providers: [],
+  providers: [
+    provideAnimations(), // required animations providers
+    provideToastr(), // Toastr providers
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,10 @@
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/models/user.model';
+import { ApiCallService } from 'src/app/services/api-call.service';
 
 @Component({
   selector: 'app-connexion',
@@ -6,5 +12,47 @@ import { Component } from '@angular/core';
   styleUrls: ['./connexion.component.scss']
 })
 export class ConnexionComponent {
+
+  loginError: string = '';
+
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  })
+
+  constructor(
+    private fb: FormBuilder,
+    private apiCallService: ApiCallService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
+
+  onSubmit() {
+    console.log(this.loginForm.value);
+    const email = this.loginForm.value.email || '';
+    const password = this.loginForm.value.password || '';
+    localStorage.removeItem('user');
+    this.apiCallService
+      .login(email, password)
+      .subscribe(
+        {
+          next: (response) => {
+            const user = response;
+            user.password = "";
+            localStorage.setItem('user', JSON.stringify(user));
+            this.toastr.success("Vous êtes connecté !");
+            this.router.navigate([""]);
+          },
+          error: (error: HttpErrorResponse) => {
+            if (error.status === HttpStatusCode.Unauthorized
+                || error.status === HttpStatusCode.BadRequest) {
+              this.loginError = "Les identifiants sont incorrects";
+            } else {
+              this.loginError = "Une erreur survenue";
+            }
+          }
+        }
+      )
+  }
 
 }

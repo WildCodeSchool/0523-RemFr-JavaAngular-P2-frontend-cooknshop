@@ -1,7 +1,7 @@
 <div class="connexion">
     <p class="seConnecter">Se connecter</p>
-    <form>
-        <fieldset>
+    <form (ngSubmit)="onSubmit()">
+        <fieldset [formGroup]="loginForm">
             <input type="email" formControlName="email" placeholder="Email" />
             <input type="password" formControlName="password" placeholder="Mot de passe" />
         </fieldset>
@@ -9,3 +9,4 @@
     </form>
     <p>Vous n'avez pas encore de compte ? <a routerLink="/inscription">S'inscrire</a></p>
 </div>
+<div>{{ loginError }}</div>
