@@ -37,8 +37,7 @@ export class ConnexionComponent {
       .subscribe(
         {
           next: (response) => {
-            const user = response;
-            user.password = "";
+            const user = new User(response.id, response.email, '', response.pseudo) ;
             localStorage.setItem('user', JSON.stringify(user));
             this.toastr.success("Vous êtes connecté !");
             this.router.navigate([""]);
