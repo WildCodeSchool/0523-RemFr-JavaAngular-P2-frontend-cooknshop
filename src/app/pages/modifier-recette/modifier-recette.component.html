@@ -3,43 +3,38 @@
   <p class="new-recette">Nouveaux ingrédients :</p>
   <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
 
-    <label>Sélectionnez votre recette a modifier</label>
+    <label>Sélectionnez votre recette à modifier</label>
     <input formControlName="recette" list="recettes" id="recette" placeholder="Sélectionnez votre recette">
     <datalist id="recettes">
-        <option *ngFor="let recipe of allRecipes" [value]="recipe.id">{{recipe.title}}</option>
+      <option *ngFor="let recipe of allRecipes" [value]="recipe.title">{{recipe.title}}</option>
     </datalist>
-    
 
     <label>Liste d'ingrédients</label>
     <button class="btn-add" type="button" (click)="ajouterIngredient()">Ajouter ingrédient<img src="assets/plus2.png"
         alt="Button Image"></button>
 
-        <div formArrayName="recipeIngredient">
-          <div class="recipeIngredient" *ngFor="let ingredient of recipeIngredient.controls; let i = index"
-            [formGroupName]="i">
-        
-            <input formControlName="nom" list="ingredients" id="ingredient" placeholder="Sélectionnez un ingrédient">
-        
-            <datalist id="ingredients">
-              <option *ngFor="let ingredient of allIngredient" [value]="ingredient.id">{{ingredient.name}}</option>
-            </datalist>
-        
-            <input formControlName="quantite" type="text" placeholder="Qté">
-        
-            <input formControlName="unite" list="units" id="unit" placeholder="Sélectionnez une unité">
-            <datalist id="units">
-              <option *ngFor="let unit of allUnits" [value]="unit.id">{{unit.name}}</option>
-            </datalist>
-        
-            <button class="btn-supr" type="button" (click)="supprimerIngredient(i)">Supprimer<img src="assets/delete.png"
-                alt="Button Image"></button>
-          </div>
-        </div>
-        
+    <div formArrayName="recipeIngredient">
+      <div class="recipeIngredient" *ngFor="let ingredient of recipeIngredient.controls; let i = index"
+        [formGroupName]="i">
 
-    
+        <input formControlName="nom" list="ingredients" id="ingredient" placeholder="Sélectionnez un ingrédient">
+        <datalist id="ingredients">
+          <option *ngFor="let ingredient of allIngredient" [value]="ingredient.name">{{ingredient.name}}</option>
+        </datalist>
 
-    <button class="btn-enregistrement" type="submit">Créer la recette<img src="assets/plus.png"
+        <input formControlName="quantite" type="text" placeholder="Qté">
+
+        <input formControlName="unite" list="units" id="unit" placeholder="Sélectionnez une unité">
+        <datalist id="units">
+          <option *ngFor="let unit of allUnits" [value]="unit.name">{{unit.name}}</option>
+        </datalist>
+
+        <button class="btn-supr" type="button" (click)="supprimerIngredient(i)">Supprimer<img src="assets/delete.png"
+            alt="Button Image"></button>
+      </div>
+    </div>
+
+    <button class="btn-enregistrement" type="submit">Modifier la recette<img src="assets/plus.png"
         alt="Button Image"></button>
   </form>
 </div>

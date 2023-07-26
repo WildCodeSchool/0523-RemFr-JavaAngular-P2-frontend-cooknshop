@@ -2,21 +2,18 @@
 <div class="div-form-recette">
     <p class="new-recette">Ajouter une catégorie à votre recette :</p>
     <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
-        <label>Sélectionnez votre recette a modifier</label>
+        <label>Sélectionnez votre recette à modifier</label>
         <input formControlName="recette" list="recettes" id="recette" placeholder="Sélectionnez votre recette">
         <datalist id="recettes">
-            <option *ngFor="let recipe of allRecipes" [value]="recipe.id">{{recipe.title}}</option>
+            <option *ngFor="let recipe of allRecipes" [value]="recipe.title">{{recipe.title}}</option>
         </datalist>
-
 
         <label for="recipeCategories">Catégorie</label>
         <input formControlName="recipeCategories" list="categories" id="recipeCategories"
             placeholder="Sélectionnez une catégorie">
-
         <datalist id="categories">
-            <option *ngFor="let category of allCategories" [value]="category.id">{{category.name}}</option>
+            <option *ngFor="let category of allCategories" [value]="category.name">{{category.name}}</option>
         </datalist>
-
 
         <button class="btn-enregistrement" type="submit">Créer la recette<img src="assets/plus.png"
                 alt="Button Image"></button>

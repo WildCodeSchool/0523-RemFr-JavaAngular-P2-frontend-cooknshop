@@ -48,15 +48,32 @@ export class AjoutCategorieRecetteComponent {
 
   enregistrer() {
     if (this.formulaire && this.formulaire.valid) {
-      const formData = {
-        recette: this.formulaire.value.recette,
-        recipeCategories: this.formulaire.value.recipeCategories,
-      };
-      console.log(formData);
-      this.http.post(`http://localhost:8080/recipes/${this.formulaire.value.recette}/categories/${this.formulaire.value.recipeCategories}/recipecategories`, formData).subscribe((response) => {
-        console.table(response);
-        this.router.navigate(['/ajout-ingredient']);
-      });
+      const selectedRecipeName = this.formulaire.value.recette;
+      const selectedRecipe = this.allRecipes.find(recipe => recipe.title === selectedRecipeName);
+
+      if (selectedRecipe) {
+        const selectedRecipeId = selectedRecipe.id;
+        console.log('ID de la recette sélectionnée:', selectedRecipeId);
+
+        const selectedCategoryName = this.formulaire.value.recipeCategories;
+        const selectedCategory = this.allCategories.find(category => category.name === selectedCategoryName);
+
+        if (selectedCategory) {
+          const selectedCategoryId = selectedCategory.id;
+          console.log('ID de la catégorie sélectionnée:', selectedCategoryId);
+
+          const formData = {
+            recette: selectedRecipeId,
+            recipeCategories: selectedCategoryId,
+          };
+          console.log(formData);
+
+          this.http.post(`http://localhost:8080/recipes/${selectedRecipeId}/categories/${selectedCategoryId}/recipecategories`, formData).subscribe((response) => {
+            console.table(response);
+            this.router.navigate(['/ajout-ingredient']);
+          });
+        }
+      }
     }
   }
 }

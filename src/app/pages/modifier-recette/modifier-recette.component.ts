@@ -26,10 +26,6 @@ export class ModifierRecetteComponent {
     this.initRecipes();
     this.initIngredients();
     this.initUnits();
-    /*this.formulaire = this.formBuilder.group({
-      recette: ['', Validators.required],
-      recipeIngredient: this.formBuilder.array([]),
-    });*/
   }
 
   initRecipes() {
@@ -54,11 +50,9 @@ export class ModifierRecetteComponent {
     );
   }
 
-
   get recipeIngredient(): FormArray {
     return this.formulaire.get('recipeIngredient') as FormArray;
   }
-
 
   ajouterIngredient() {
     const nouvelIngredient = this.formBuilder.group({
@@ -74,36 +68,45 @@ export class ModifierRecetteComponent {
     this.recipeIngredient.removeAt(index);
   }
 
-
   enregistrer() {
     if (this.formulaire && this.formulaire.valid) {
-      const formData = [];
-  
-      const recipeId = this.formulaire.value.recette;
-  
-      const ingredientsFormArray = this.formulaire.get('recipeIngredient') as FormArray;
-      for (const ingredientGroup of ingredientsFormArray.controls) {
-        const quantity = ingredientGroup.get('quantite')?.value;
-        const unitId = ingredientGroup.get('unite')?.value;
-        const ingredientId = ingredientGroup.get('nom')?.value;
-  
-        const ingredientData = {
-          quantity: quantity,
-          recipe: recipeId,
-          unit: { id: unitId },
-          ingredient: { id: ingredientId }
-        };
-  
-        formData.push(ingredientData);
+      const selectedRecipeName = this.formulaire.value.recette;
+      const selectedRecipe = this.allRecipes.find(recipe => recipe.title === selectedRecipeName);
+
+      if (selectedRecipe) {
+        const selectedRecipeId = selectedRecipe.id;
+        console.log('ID de la recette sélectionnée:', selectedRecipeId);
+
+        const formData = [];
+
+        const ingredientsFormArray = this.formulaire.get('recipeIngredient') as FormArray;
+        for (const ingredientGroup of ingredientsFormArray.controls) {
+          const quantity = ingredientGroup.get('quantite')?.value;
+          const selectedIngredientName = ingredientGroup.get('nom')?.value;
+          const selectedIngredient = this.allIngredient.find(ingredient => ingredient.name === selectedIngredientName);
+          const selectedUnitName = ingredientGroup.get('unite')?.value;
+          const selectedUnit = this.allUnits.find(unit => unit.name === selectedUnitName);
+
+          if (selectedIngredient && selectedUnit) {
+            const ingredientData = {
+              quantity: quantity,
+              recipe: selectedRecipeId,
+              unit: { id: selectedUnit.id },
+              ingredient: { id: selectedIngredient.id }
+            };
+
+            formData.push(ingredientData);
+          }
+        }
+
+        console.log(formData);
+
+        const url = `http://localhost:8080/recipes/${selectedRecipeId}/ingredients`;
+        this.http.post(url, formData).subscribe((response) => {
+          console.table(response);
+          this.router.navigate([`/details-recette/${selectedRecipeId}`]);
+        });
       }
-  
-      console.log(formData);
-  
-      const url = `http://localhost:8080/recipes/${recipeId}/ingredients`;
-      this.http.post(url, formData).subscribe((response) => {
-        console.table(response);
-        this.router.navigate([`/details-recette/${recipeId}`]);
-      });
     }
   }
 }
