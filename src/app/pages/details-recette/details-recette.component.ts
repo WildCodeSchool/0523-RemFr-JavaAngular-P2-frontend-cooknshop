@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./details-recette.component.scss'],
 })
 export class DetailsRecetteComponent {
+  public status = 'notready';
   public myRecipe: any;
   public allIngredients: any;
   public id = 0;
@@ -18,21 +19,13 @@ export class DetailsRecetteComponent {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
       this.initRecipe(this.id);
-      this.initIngredients();
     });
   }
 
   initRecipe(myid: any) {
     this.ApiCallService.GetResponse(`recipes/${myid}`).subscribe((data: any) => {
+      this.status = 'ready';
       this.myRecipe = data;
-      console.log(data);
-    });
-  }
-
-  initIngredients() {
-    this.ApiCallService.GetResponse(`ingredients`).subscribe((data: any) => {
-      this.allIngredients = data;
-      console.log(data);
     });
   }
 }

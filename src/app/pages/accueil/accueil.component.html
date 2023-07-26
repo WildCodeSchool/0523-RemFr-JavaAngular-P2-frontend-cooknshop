@@ -1,12 +1,27 @@
 <h2>Recettes pour vous :</h2>
 
-<div class="div-liste">
+<div class="div-liste" *ngIf="status === 'ready'">
   <div *ngFor="let recipe of allRecipes; let i = index">
     <div class="div-recettes">
       <img src="{{ recipe.imageLink }}" routerLink="/details-recette" />
       <div class="div-title-desc" routerLink="/details-recette/{{ recipe.id }}">
         <h3>{{ recipe.title }}</h3>
         <p>{{ recipe.recipeCategories[0].name }}</p>
+      </div>
+      <div class="boutton-fav">
+        <app-boutton-fav></app-boutton-fav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div-liste" *ngIf="status === 'notready'">
+  <div>
+    <div class="div-recettes">
+      <img src="" routerLink="/details-recette" />
+      <div class="div-title-desc" routerLink="">
+        <h3>Loading</h3>
+        <p></p>
       </div>
       <div class="boutton-fav">
         <app-boutton-fav></app-boutton-fav>
