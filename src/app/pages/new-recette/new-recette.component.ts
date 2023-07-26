@@ -1,89 +1,89 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { ApiCallService } from 'src/app/services/api-call.service';
+import { Router } from '@angular/router';
+
+interface StepGroupValue {
+  number: number;
+  description: string;
+}
 
 @Component({
   selector: 'app-new-recette',
   templateUrl: './new-recette.component.html',
   styleUrls: ['./new-recette.component.scss']
 })
-export class NewRecetteComponent  implements OnInit {
+export class NewRecetteComponent implements OnInit {
   formulaire: FormGroup;
+  allCategories: any[] = [];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private ApiCallService: ApiCallService, private router: Router) {
     this.formulaire = this.formBuilder.group({
-      titre: ['', Validators.required],
+      title: ['', Validators.required],
       difficulty: ['', Validators.required],
       budget: ['', Validators.required],
       prepTime: ['', Validators.required],
       cookTime: ['', Validators.required],
       imageLink: ['', Validators.required],
-      ingredients: this.formBuilder.array([]),
-      instructions: this.formBuilder.array([])
+      stepList: this.formBuilder.array([]),
     });
   }
 
   ngOnInit() {
     this.formulaire = this.formBuilder.group({
-      titre: ['', Validators.required],
+      title: ['', Validators.required],
       difficulty: ['', Validators.required],
       budget: ['', Validators.required],
       prepTime: ['', Validators.required],
       cookTime: ['', Validators.required],
       imageLink: ['', Validators.required],
-      ingredients: this.formBuilder.array([]),
-      instructions: this.formBuilder.array([])
+      stepList: this.formBuilder.array([]),
     });
   }
 
-  get ingredients(): FormArray {
-    return this.formulaire.get('ingredients') as FormArray;
-  }
-
-  get instructions(): FormArray {
-    return this.formulaire.get('instructions') as FormArray;
-  }
-
-  ajouterIngredient() {
-    const nouvelIngredient = this.formBuilder.group({
-      nom: ['', Validators.required],
-      quantite: ['', Validators.required],
-      unite: ['', Validators.required]
-    });
-
-    this.ingredients.push(nouvelIngredient);
-  }
-
-  supprimerIngredient(index: number) {
-    this.ingredients.removeAt(index);
+  get stepList(): FormArray {
+    return this.formulaire.get('stepList') as FormArray;
   }
 
   ajouterEtape() {
     const nouvelleEtape = this.formBuilder.group({
-      numero: ['', Validators.required],
+      number: ['', Validators.required],
       description: ['', Validators.required]
     });
 
-    this.instructions.push(nouvelleEtape);
+    this.stepList.push(nouvelleEtape);
   }
 
   supprimerEtape(index: number) {
-    this.instructions.removeAt(index);
+    this.stepList.removeAt(index);
   }
 
   enregistrer() {
     if (this.formulaire && this.formulaire.valid) {
-      // Récupérer les données du formulaire
-      const titre = this.formulaire.get('titre')?.value;
-      const difficulty = this.formulaire.get('difficulty')?.value;
-      const budget = this.formulaire.get('budget')?.value;
-      const prepTime = this.formulaire.get('prepTime')?.value;
-      const cookTime = this.formulaire.get('cookTime')?.value;
-      const imageLink = this.formulaire.get('imageLink')?.value;
-      const ingredients = this.formulaire.get('ingredients')?.value;
-      const instructions = this.formulaire.get('instructions')?.value;
-  
-      // Faire quelque chose avec les données (par exemple, les envoyer à un service)
-      console.log(titre, difficulty, budget, prepTime, cookTime, imageLink, ingredients, instructions);
+      const prepTimeH = (this.formulaire.value.prepTime / 60);
+      const cookTimeH = (this.formulaire.value.cookTime / 60);
+      const formData = {
+        title: this.formulaire.value.title,
+        difficulty: this.formulaire.value.difficulty,
+        budget: this.formulaire.value.budget,
+        prepTime: prepTimeH,
+        cookTime: cookTimeH,
+        imageLink: this.formulaire.value.imageLink,
+        stepList: [] as StepGroupValue[]
+      };
+
+      const stepsFormArray = this.formulaire.get('stepList') as FormArray;
+      for (const stepGroup of stepsFormArray.controls) {
+        formData.stepList.push({
+          number: stepGroup.value.number,
+          description: stepGroup.value.description
+        });
+      }
+
+      this.http.post("http://localhost:8080/recipes", formData).subscribe((response) => {
+        this.router.navigate(['/ajout-categorie']);
+      });
     }
   }
 }

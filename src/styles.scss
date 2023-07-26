@@ -7,9 +7,14 @@ body {
 }
 @font-face {
     font-family: 'Open Sans';
-    src: url('/src/assets/Fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+    src: url('/assets/Fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
 }
 @font-face {
     font-family: 'Fascinate Inline';
-    src: url('/src/assets/Fonts/Fascinate_Inline/FascinateInline-Regular.ttf') format('truetype');
+    src: url('/assets/Fonts/Fascinate_Inline/FascinateInline-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Shadows Into Light';
+    src: url('/assets/Fonts/Shadows_Into_Light/ShadowsIntoLight-Regular.ttf') format('truetype');
 }

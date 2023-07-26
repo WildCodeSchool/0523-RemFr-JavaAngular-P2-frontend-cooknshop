@@ -23,6 +23,8 @@ import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { DetailsRecetteComponent } from './pages/details-recette/details-recette.component';
 import { PanierRecettesComponent } from './pages/panier-recettes/panier-recettes.component';
 import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.component';
+import { ModifierRecetteComponent } from './pages/modifier-recette/modifier-recette.component';
+import { AjoutCategorieRecetteComponent } from './pages/ajout-categorie-recette/ajout-categorie-recette.component';
 
 import { ToastrModule } from 'ngx-toastr';
 import { provideToastr } from 'ngx-toastr';
@@ -45,6 +47,8 @@ import { provideToastr } from 'ngx-toastr';
     DetailsRecetteComponent,
     PanierRecettesComponent,
     ListeCoursesComponent,
+    ModifierRecetteComponent,
+    AjoutCategorieRecetteComponent,
   ],
   imports: [
     BrowserAnimationsModule,
