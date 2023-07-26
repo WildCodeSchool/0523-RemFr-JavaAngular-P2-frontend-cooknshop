@@ -23,6 +23,8 @@ import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { DetailsRecetteComponent } from './pages/details-recette/details-recette.component';
 import { PanierRecettesComponent } from './pages/panier-recettes/panier-recettes.component';
 import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.component';
+import { ModifierRecetteComponent } from './pages/modifier-recette/modifier-recette.component';
+import { AjoutCategorieRecetteComponent } from './pages/ajout-categorie-recette/ajout-categorie-recette.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { ListeCoursesComponent } from './pages/liste-courses/liste-courses.compo
     DetailsRecetteComponent,
     PanierRecettesComponent,
     ListeCoursesComponent,
+    ModifierRecetteComponent,
+    AjoutCategorieRecetteComponent,
   ],
   imports: [
     BrowserModule,
