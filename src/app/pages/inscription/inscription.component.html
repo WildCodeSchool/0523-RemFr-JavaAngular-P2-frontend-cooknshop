@@ -1,7 +1,7 @@
 <div class="inscription">
     <p>S'inscrire</p>
-    <form>
-        <fieldset>
+    <form (ngSubmit)="onSubmit()">
+        <fieldset [formGroup]="registerForm">
             <input type="email" formControlName="email" placeholder="Email" />
             <input type="password" formControlName="password" placeholder="Mot de passe" />
             <input type="pseudo" formControlName="pseudo" placeholder="Pseudo" />
