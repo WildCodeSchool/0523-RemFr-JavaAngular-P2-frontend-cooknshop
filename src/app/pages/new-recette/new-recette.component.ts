@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { Router } from '@angular/router';
 
 interface StepGroupValue {
   number: number;
@@ -17,7 +18,7 @@ export class NewRecetteComponent  implements OnInit {
   formulaire: FormGroup;
   allCategories: any[] =[];
 
-  constructor(private formBuilder: FormBuilder,private http: HttpClient,private ApiCallService: ApiCallService) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private ApiCallService: ApiCallService, private router: Router) {
     this.formulaire = this.formBuilder.group({
       title: ['', Validators.required],
       difficulty: ['', Validators.required],
@@ -88,12 +89,14 @@ export class NewRecetteComponent  implements OnInit {
 
   enregistrer() {
     if (this.formulaire && this.formulaire.valid) {
+      const prepTimeH = (this.formulaire.value.prepTime/60);
+      const cookTimeH = (this.formulaire.value.cookTime/60);
       const formData = {
         title: this.formulaire.value.title,
         difficulty: this.formulaire.value.difficulty,
         budget: this.formulaire.value.budget,
-        prepTime: this.formulaire.value.prepTime,
-        cookTime: this.formulaire.value.cookTime,
+        prepTime: prepTimeH,
+        cookTime: cookTimeH,
         imageLink: this.formulaire.value.imageLink,
         stepList: [] as StepGroupValue[]
       };
@@ -118,7 +121,10 @@ export class NewRecetteComponent  implements OnInit {
       }
   
       console.log(formData);
-      this.http.post("http://localhost:8080/recipes", formData).subscribe((response) => console.table(response));
+      this.http.post("http://localhost:8080/recipes", formData).subscribe((response) => {
+        console.table(response);
+        this.router.navigate(['/ajout-categorie']);
+      });
     }
   }
 }

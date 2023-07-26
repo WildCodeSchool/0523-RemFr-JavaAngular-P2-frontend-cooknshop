@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ajout-categorie-recette',
@@ -13,7 +14,7 @@ export class AjoutCategorieRecetteComponent {
   allRecipes: any[] = [];
   allCategories: any[] = [];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private ApiCallService: ApiCallService) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private ApiCallService: ApiCallService, private router: Router) {
     this.formulaire = this.formBuilder.group({
       recette: ['', Validators.required],
       recipeCategories: ['', Validators.required]
@@ -52,7 +53,10 @@ export class AjoutCategorieRecetteComponent {
         recipeCategories: this.formulaire.value.recipeCategories,
       };
       console.log(formData);
-      this.http.post(`http://localhost:8080/recipes/${this.formulaire.value.recette}/categories/${this.formulaire.value.recipeCategories}/recipecategories`, formData).subscribe((response) => console.table(response));
+      this.http.post(`http://localhost:8080/recipes/${this.formulaire.value.recette}/categories/${this.formulaire.value.recipeCategories}/recipecategories`, formData).subscribe((response) => {
+        console.table(response);
+        this.router.navigate(['/ajout-ingredient']);
+      });
     }
   }
 }
