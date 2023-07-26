@@ -8,6 +8,7 @@ import { ApiCallService } from 'src/app/services/api-call.service';
   styleUrls: ['./accueil.component.scss'],
 })
 export class AccueilComponent {
+  public status = 'notready';
   public allRecipes: any;
   public allCategories: string[] = [];
   constructor(private ApiCallService: ApiCallService) {}
@@ -18,6 +19,7 @@ export class AccueilComponent {
   initRecipes() {
     this.ApiCallService.GetResponse('recipes').subscribe((data: any) => {
       this.allRecipes = data;
+      this.status = 'ready';
       for (let i = 0; i < data.length; i++) {
         if (data[i].recipeCategories[0].id != undefined && data[i].recipeCategories[0].name != undefined) {
           const key = data[i].recipeCategories[0].id;
