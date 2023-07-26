@@ -75,10 +75,7 @@ export class ModifierRecetteComponent {
 
       if (selectedRecipe) {
         const selectedRecipeId = selectedRecipe.id;
-        console.log('ID de la recette sélectionnée:', selectedRecipeId);
-
         const formData = [];
-
         const ingredientsFormArray = this.formulaire.get('recipeIngredient') as FormArray;
         for (const ingredientGroup of ingredientsFormArray.controls) {
           const quantity = ingredientGroup.get('quantite')?.value;
@@ -98,12 +95,8 @@ export class ModifierRecetteComponent {
             formData.push(ingredientData);
           }
         }
-
-        console.log(formData);
-
         const url = `http://localhost:8080/recipes/${selectedRecipeId}/ingredients`;
         this.http.post(url, formData).subscribe((response) => {
-          console.table(response);
           this.router.navigate([`/details-recette/${selectedRecipeId}`]);
         });
       }

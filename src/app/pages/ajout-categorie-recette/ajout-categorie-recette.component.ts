@@ -53,23 +53,17 @@ export class AjoutCategorieRecetteComponent {
 
       if (selectedRecipe) {
         const selectedRecipeId = selectedRecipe.id;
-        console.log('ID de la recette sélectionnée:', selectedRecipeId);
-
         const selectedCategoryName = this.formulaire.value.recipeCategories;
         const selectedCategory = this.allCategories.find(category => category.name === selectedCategoryName);
 
         if (selectedCategory) {
           const selectedCategoryId = selectedCategory.id;
-          console.log('ID de la catégorie sélectionnée:', selectedCategoryId);
-
           const formData = {
             recette: selectedRecipeId,
             recipeCategories: selectedCategoryId,
           };
-          console.log(formData);
 
           this.http.post(`http://localhost:8080/recipes/${selectedRecipeId}/categories/${selectedCategoryId}/recipecategories`, formData).subscribe((response) => {
-            console.table(response);
             this.router.navigate(['/ajout-ingredient']);
           });
         }

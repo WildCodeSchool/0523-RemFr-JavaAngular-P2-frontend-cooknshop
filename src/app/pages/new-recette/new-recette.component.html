@@ -19,32 +19,6 @@
       <option value="EXPENSIVE">Coûteux</option>
     </select>
 
-    <!--<label>Liste d'ingrédients</label>
-    <button class="btn-add" type="button" (click)="ajouterIngredient()">Ajouter ingrédient<img src="assets/plus2.png"
-        alt="Button Image"></button>
-
-    <div formArrayName="recipeIngredient">
-      <div class="recipeIngredient" *ngFor="let ingredient of recipeIngredient.controls; let i = index"
-        [formGroupName]="i">
-
-        <input formControlName="ingredient" list="ingredients" id="ingredient" placeholder="Sélectionnez un ingrédient">
-
-        <datalist id="ingredients">
-          <option *ngFor="let ingredient of allIngredient" [value]="ingredient.name"></option>
-        </datalist>
-
-        <input formControlName="quantite" type="text" placeholder="Qté">
-
-        <input formControlName="unit" list="units" id="unit" placeholder="Sélectionnez une unité">
-        <datalist id="units">
-          <option *ngFor="let unit of allUnits" [value]="unit.name"></option>
-        </datalist>
-
-        <button class="btn-supr" type="button" (click)="supprimerIngredient(i)">Supprimer<img src="assets/delete.png"
-            alt="Button Image"></button>
-      </div>
-    </div>-->
-
     <label for="prepTime">Temps de préparation</label>
     <input formControlName="prepTime" id="prepTime" type="text" placeholder="Ex : 30 min">
 
@@ -53,15 +27,6 @@
 
     <label for="imageLink">Lien vers l'image</label>
     <input formControlName="imageLink" id="imageLink" type="text" placeholder="URL de l'image">
-
-    <!--<label for="recipeCategories">Catégorie</label>
-    <input formControlName="recipeCategories" list="categories" id="recipeCategories"
-      placeholder="Sélectionnez une catégorie">
-
-    <datalist id="categories">
-      <option *ngFor="let category of allCategories" [value]="category.id">{{category.name}}</option>
-    </datalist>-->
-
 
     <label>Instructions de préparation :</label>
     <button class="btn-add" type="button" (click)="ajouterEtape()">Ajouter une étape de préparation<img
@@ -81,4 +46,3 @@
         alt="Button Image"></button>
   </form>
 </div>
-<div>{{formulaire.value | json}}</div>

@@ -14,11 +14,11 @@ interface StepGroupValue {
   templateUrl: './new-recette.component.html',
   styleUrls: ['./new-recette.component.scss']
 })
-export class NewRecetteComponent  implements OnInit {
+export class NewRecetteComponent implements OnInit {
   formulaire: FormGroup;
-  allCategories: any[] =[];
+  allCategories: any[] = [];
 
-  constructor(private formBuilder: FormBuilder,private http: HttpClient,private ApiCallService: ApiCallService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private ApiCallService: ApiCallService, private router: Router) {
     this.formulaire = this.formBuilder.group({
       title: ['', Validators.required],
       difficulty: ['', Validators.required],
@@ -31,7 +31,6 @@ export class NewRecetteComponent  implements OnInit {
   }
 
   ngOnInit() {
-    //this.initCategories();
     this.formulaire = this.formBuilder.group({
       title: ['', Validators.required],
       difficulty: ['', Validators.required],
@@ -43,36 +42,9 @@ export class NewRecetteComponent  implements OnInit {
     });
   }
 
-  /*initCategories(){
-    this.ApiCallService.GetResponse('categories').subscribe(
-      (categorie) => {
-        this.allCategories = categorie;
-      }
-    );
-  }*/
-
-
-  /*get recipeIngredient(): FormArray {
-    return this.formulaire.get('recipeIngredient') as FormArray;
-  }*/
-
   get stepList(): FormArray {
     return this.formulaire.get('stepList') as FormArray;
   }
-
-  /*ajouterIngredient() {
-    const nouvelIngredient = this.formBuilder.group({
-      nom: ['', Validators.required],
-      quantite: ['', Validators.required],
-      unite: ['', Validators.required]
-    });
-
-    this.recipeIngredient.push(nouvelIngredient);
-  }
-
-  supprimerIngredient(index: number) {
-    this.recipeIngredient.removeAt(index);
-  }*/
 
   ajouterEtape() {
     const nouvelleEtape = this.formBuilder.group({
@@ -89,8 +61,8 @@ export class NewRecetteComponent  implements OnInit {
 
   enregistrer() {
     if (this.formulaire && this.formulaire.valid) {
-      const prepTimeH = (this.formulaire.value.prepTime/60);
-      const cookTimeH = (this.formulaire.value.cookTime/60);
+      const prepTimeH = (this.formulaire.value.prepTime / 60);
+      const cookTimeH = (this.formulaire.value.cookTime / 60);
       const formData = {
         title: this.formulaire.value.title,
         difficulty: this.formulaire.value.difficulty,
@@ -100,18 +72,7 @@ export class NewRecetteComponent  implements OnInit {
         imageLink: this.formulaire.value.imageLink,
         stepList: [] as StepGroupValue[]
       };
-  
 
-      /*const selectedCategoryId = this.formulaire.value.recipeCategories;
-      const selectedCategory = this.allCategories.find(category => category.id == selectedCategoryId);
-  
-      if (selectedCategory) {
-        formData.recipeCategories = {
-          id: selectedCategory.id,
-          name: selectedCategory.name
-        };
-      }*/
-  
       const stepsFormArray = this.formulaire.get('stepList') as FormArray;
       for (const stepGroup of stepsFormArray.controls) {
         formData.stepList.push({
@@ -119,10 +80,8 @@ export class NewRecetteComponent  implements OnInit {
           description: stepGroup.value.description
         });
       }
-  
-      console.log(formData);
+
       this.http.post("http://localhost:8080/recipes", formData).subscribe((response) => {
-        console.table(response);
         this.router.navigate(['/ajout-categorie']);
       });
     }
