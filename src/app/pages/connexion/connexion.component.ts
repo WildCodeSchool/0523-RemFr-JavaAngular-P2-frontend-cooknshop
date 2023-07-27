@@ -33,7 +33,7 @@ export class ConnexionComponent {
     const password = this.loginForm.value.password || '';
     localStorage.removeItem('user');
     this.apiCallService
-      .login(email, password)
+      .login(email, password, 'users/login')
       .subscribe(
         {
           next: (response) => {
@@ -45,9 +45,9 @@ export class ConnexionComponent {
           error: (error: HttpErrorResponse) => {
             if (error.status === HttpStatusCode.Unauthorized
                 || error.status === HttpStatusCode.BadRequest) {
-              this.loginError = "Les identifiants sont incorrects";
+              this.toastr.warning("Les identifiants sont incorrects");
             } else {
-              this.loginError = "Une erreur survenue";
+              this.toastr.error("Une erreur survenue");
             }
           }
         }

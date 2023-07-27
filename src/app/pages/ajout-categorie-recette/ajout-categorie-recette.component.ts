@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-ajout-categorie-recette',
@@ -63,7 +64,7 @@ export class AjoutCategorieRecetteComponent {
             recipeCategories: selectedCategoryId,
           };
 
-          this.http.post(`http://localhost:8080/recipes/${selectedRecipeId}/categories/${selectedCategoryId}/recipecategories`, formData).subscribe((response) => {
+          this.http.post(`${environment.baseApiUrl}/recipes/${selectedRecipeId}/categories/${selectedCategoryId}/recipecategories`, formData).subscribe((response) => {
             this.router.navigate(['/ajout-ingredient']);
           });
         }

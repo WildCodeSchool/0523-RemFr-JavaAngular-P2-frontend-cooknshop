@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-modifier-recette',
@@ -95,7 +96,7 @@ export class ModifierRecetteComponent {
             formData.push(ingredientData);
           }
         }
-        const url = `http://localhost:8080/recipes/${selectedRecipeId}/ingredients`;
+        const url = `${environment.baseApiUrl}/recipes/${selectedRecipeId}/ingredients`;
         this.http.post(url, formData).subscribe((response) => {
           this.router.navigate([`/details-recette/${selectedRecipeId}`]);
         });

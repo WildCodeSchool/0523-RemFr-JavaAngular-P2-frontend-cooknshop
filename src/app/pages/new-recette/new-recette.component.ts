@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 interface StepGroupValue {
   number: number;
@@ -81,7 +82,7 @@ export class NewRecetteComponent implements OnInit {
         });
       }
 
-      this.http.post("http://localhost:8080/recipes", formData).subscribe((response) => {
+      this.http.post(`${environment.baseApiUrl}/recipes`, formData).subscribe((response) => {
         this.router.navigate(['/ajout-categorie']);
       });
     }
