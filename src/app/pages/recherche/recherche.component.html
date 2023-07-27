@@ -1,31 +1,36 @@
 <div class="div-recherche">
-    <form class="searchbox-container">
-        <input type="search" class="searchbox" name="search"
-            placeholder="Nom, catégorie, description d'une recette..." />
-        <button type="submit" class="searchbutton"><img class="btn-recherche" src="assets/loupe.png"
-                alt="Boutton recherche"></button>
-    </form>
+  <form (ngSubmit)="onSubmit()" class="searchbox-container">
+    <input
+      [(ngModel)]="recipeInput"
+      type="search"
+      class="searchbox"
+      name="search"
+      placeholder="Nom, catégorie d'une recette..."
+    />
+    <button type="submit" class="searchbutton">
+      <img class="btn-recherche" src="assets/loupe.png" alt="Boutton recherche" />
+    </button>
+  </form>
 </div>
 
-<div class="result">
-    <p>Résultat de la recheche :</p>
-    <!--NgIf pas de resulat-->
-    <p>Aucun résultat trouvé</p>
-
+<div class="result" *ngIf="status === 'notready'">
+  <p>Résultat de la recherche :</p>
+  <p>Aucun résultat trouvé</p>
 </div>
-
-<div class="div-liste">
-
-    <!--NgIf resultat-->
+<div class="result" *ngIf="status === 'ready'">
+  <div
+    class="div-liste"
+    *ngFor="let recipe of recipeResponse; let i = index"
+    routerLink="/details-recette/{{ recipe.id }}"
+  >
     <div class="div-recettes">
-        <img src="https://assets.afcdn.com/recipe/20210428/119899_w750h934cx372cy501cxb749cyb934.webp">
-        <div class="div-title-desc">
-            <h3>Titre de la recette</h3>
-            <p>Une description pour cette recette</p>
-        </div>
-        <div class="boutton-fav">
-            <app-boutton-fav></app-boutton-fav>
-        </div>
+      <img src="{{ recipe.imageLink }}" />
+      <div class="div-title-desc">
+        <h3>{{ recipe.title }}</h3>
+      </div>
+      <div class="boutton-fav">
+        <app-boutton-fav></app-boutton-fav>
+      </div>
     </div>
-
+  </div>
 </div>

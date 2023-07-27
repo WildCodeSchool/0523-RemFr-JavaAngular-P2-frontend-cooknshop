@@ -1,51 +1,47 @@
 <div class="header">
+  <div class="menu-burger">
+    <nav role="navigation">
+      <div id="menuToggle">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
 
-    <div class="menu-burger">
-        <nav role="navigation">
-            <div id="menuToggle">
-                <input type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
+        <ul id="menu">
+          <a routerLink="">
+            <li>Accueil</li>
+          </a>
+          <a routerLink="/connexion">
+            <li>Connexion</li>
+          </a>
+          <a routerLink="/inscription">
+            <li>Inscription</li>
+          </a>
+          <a routerLink="/liste-courses">
+            <li>Liste de course</li>
+          </a>
+          <a routerLink="/nouvelle-recette">
+            <li>Créer une recette</li>
+          </a>
+          <a routerLink="/ajout-categorie">
+            <li>Modifier une recette</li>
+          </a>
+          <a routerLink="/panier-recettes">
+            <li>Liste de recettes</li>
+          </a>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
-                <ul id="menu">
-                    <a routerLink="">
-                        <li>Accueil</li>
-                    </a>
-                    <a routerLink="/connexion">
-                        <li>Connexion</li>
-                    </a>
-                    <a routerLink="/inscription">
-                        <li>Inscription</li>
-                    </a>
-                    <a routerLink="/liste-courses">
-                        <li>Liste de course</li>
-                    </a>
-                    <a routerLink="/nouvelle-recette">
-                        <li>Créer une recette</li>
-                    </a>
-                    <a routerLink="/ajout-categorie">
-                        <li>Modifier une recette</li>
-                    </a>
-                    <a routerLink="/panier-recettes">
-                        <li>Liste de recettes</li>
-                    </a>
-                </ul>
-            </div>
-        </nav>
-    </div>
+  <div class="div-title">
+    <a routerLink="">
+      <img src="assets/CookNShop-Logo.PNG" alt="Logo CookNShop" />
+    </a>
+  </div>
 
-    <div class="div-title">
-        <a routerLink="">
-            <img src="assets/CookNShop-Logo.PNG" alt="Logo CookNShop">
-        </a>
-    </div>
-
-    <div class="div-boutton">
-        <a routerLink="/liste-courses"><img src="assets/chariot.png" alt="Boutton liste de course"></a>
-        <a routerLink="/recherche"><img src="assets/loupe.png" alt="Boutton recherche"></a>
-    </div>
-
-
-
+  <div class="div-boutton">
+    <a routerLink="/liste-courses"><img src="assets/chariot.png" alt="Boutton liste de course" /></a>
+    <a routerLink="/recherche/nothing"><img src="assets/loupe.png" alt="Boutton recherche" /></a>
+  </div>
 </div>

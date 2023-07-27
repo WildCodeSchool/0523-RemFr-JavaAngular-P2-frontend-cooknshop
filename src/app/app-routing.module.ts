@@ -14,15 +14,15 @@ import { AjoutCategorieRecetteComponent } from './pages/ajout-categorie-recette/
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
-  { path: 'recherche', component: RechercheComponent },
+  { path: 'recherche/:query', component: RechercheComponent },
   { path: 'nouvelle-recette', component: NewRecetteComponent },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'details-recette/:id', component: DetailsRecetteComponent },
   { path: 'panier-recettes', component: PanierRecettesComponent },
   { path: 'liste-courses', component: ListeCoursesComponent },
-  { path: 'ajout-ingredient', component: ModifierRecetteComponent},
-  { path: 'ajout-categorie', component: AjoutCategorieRecetteComponent},
+  { path: 'ajout-ingredient', component: ModifierRecetteComponent },
+  { path: 'ajout-categorie', component: AjoutCategorieRecetteComponent },
 ];
 
 @NgModule({
