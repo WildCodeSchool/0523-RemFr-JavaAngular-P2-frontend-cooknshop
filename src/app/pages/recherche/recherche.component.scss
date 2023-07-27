@@ -20,12 +20,23 @@ button {
         display: flex;
         align-items: center;
     }
-    .btn-recherche{
+
+    .btn-recherche {
         height: 30px;
     }
-    .result{
-        width:  80%;
-        margin-left: 10%;
+
+    .result {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 76%;
+        margin-left: 12%;
+    }
+
+    .div-title-desc>h3 {
+        font-family: 'Shadows Into Light';
+        font-size: 1.3rem;
     }
 }
 
@@ -40,15 +51,28 @@ button {
         display: flex;
         align-items: center;
     }
+
     input {
         margin-right: 3rem;
     }
+
     .btn-recherche {
         height: 35px;
     }
-    .result{
-        width:  60%;
-        margin-left: 20%;
+
+    .result {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 76%;
+        margin-left: 12%;
+        margin-top: 30px;
+    }
+
+    .div-title-desc>h3 {
+        font-family: 'Shadows Into Light';
+        font-size: 1.6rem;
     }
 }
 
@@ -60,47 +84,54 @@ form {
     justify-content: space-between;
 }
 
-.div-recettes > img{
+.div-recettes>img {
     height: 350px;
     width: 450px;
     object-fit: cover;
     border-radius: 10px;
 }
-.div-recettes{
+
+.div-recettes {
     height: 350px;
     width: 450px;
-    margin: 20px;
+    margin: 15px;
     position: relative;
     border-radius: 10px;
 }
+
 @media (max-width: 768px) {
-    .div-recettes > img{
+    .div-recettes>img {
         height: 350px;
         max-width: 100%;
         object-fit: cover;
         border-radius: 10px;
     }
-    .div-recettes{
+
+    .div-recettes {
         height: 350px;
         width: 100%;
-        margin: 20px 0px 20px 0px ;
+        margin: 20px 0px 20px 0px;
         position: relative;
         border-radius: 10px;
     }
 }
-.boutton-fav{
+
+.boutton-fav {
     position: absolute;
     top: 10px;
     right: 10px;
 }
-.div-title-desc{
+
+.div-title-desc {
     position: absolute;
     bottom: 0px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.52);
     border-radius: 0px 0px 10px 10px;
 }
-.div-title-desc > h3,.div-title-desc > p{
+
+.div-title-desc>h3,
+.div-title-desc>p {
     padding-left: 20px;
     padding-right: 20px;
     display: -webkit-box;
@@ -110,15 +141,3 @@ form {
     text-overflow: ellipsis;
     color: rgb(255, 255, 255);
 }
-.div-title-desc > h3{
-    font-family: 'Fascinate Inline', cursive;
-}
-.div-liste{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width:  80%;
-    margin-left: 10%;
-}
-
