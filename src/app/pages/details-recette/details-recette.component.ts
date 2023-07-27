@@ -50,7 +50,6 @@ export class DetailsRecetteComponent {
           const nbPersonnes = this.nbPersonnesInputRef.nativeElement.value;
           this.http.post(`http://localhost:8080/cart/${idPanier}/addRecipe/${this.id}?nb_person=${nbPersonnes}`, {}).subscribe(
             (reponse: any) => {
-              console.log('Recette ajoutée au panier avec succès !', reponse);
               this.toastr.success("Recette ajoutée au panier avec succès !");
               this.recetteAjouteeAuPanier = true;
             },
