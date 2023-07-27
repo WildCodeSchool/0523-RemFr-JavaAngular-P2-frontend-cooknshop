@@ -8,7 +8,7 @@
         <input type="number" value="{{ cartItem.nbPerson }}" min="1" max="30" />
         <label>personnes</label>
       </div>
-      <button><img src="/assets/delete.png" /></button>
+      <button (click)="supprimerRecetteDuPanier(cartItem.id)"><img src="/assets/delete.png" /></button>
     </li>
   </ul>
   <ul *ngIf="status === 'notready'">
