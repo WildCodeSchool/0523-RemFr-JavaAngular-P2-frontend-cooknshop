@@ -13,15 +13,18 @@
     </div>
   </div>
 
-  <div class="list-ingredients">
+  <div class="list-ingredients-div">
     <h3>Liste des ingrédients</h3>
     <ul>
       <li *ngFor="let ingredient of myRecipe.recipeIngredient; let i = index">
         {{ ingredient.ingredient.name }} : {{ ingredient.quantity }} {{ ingredient.unit.name }}
       </li>
     </ul>
-    <label for="">Nombre de personnes : {{ myRecipe.nbPerson }}</label>
-    <input type="number" value="1" min="1" max="30" />
+    <div class="list-ingredients">
+      <label for="">Nombre de personnes : </label>
+      <input #nbPersonnesInput type="number" [value]=myRecipe.nbPerson min="1" max="30" />
+    </div>
+
   </div>
 
   <div class="step">
@@ -33,6 +36,9 @@
       </li>
     </ul>
   </div>
-  <button>Ajouter au panier</button>
+  <button (click)="ajouterRecetteAuPanierUtilisateur()" [disabled]="recetteAjouteeAuPanier"
+    [ngClass]="{'disabled-button': recetteAjouteeAuPanier, 'active-button': !recetteAjouteeAuPanier}">
+    Ajouter au panier
+  </button>
 </div>
 <div class="container" *ngIf="status === 'notready'"></div>

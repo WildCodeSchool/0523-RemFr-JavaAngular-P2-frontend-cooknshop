@@ -2,13 +2,13 @@
   <h3>Panier de recettes</h3>
 
   <ul *ngIf="status === 'ready'">
-    <li *ngFor="let cartItem of myCart.recipeList; let i = index">
+    <li *ngFor="let cartItem of myCart; let i = index">
       <p class="titre-recettre">{{ cartItem.recipe.title }}</p>
       <div>
         <input type="number" value="{{ cartItem.nbPerson }}" min="1" max="30" />
         <label>personnes</label>
       </div>
-      <button><img src="/assets/delete.png" /></button>
+      <button (click)="supprimerRecetteDuPanier(cartItem.id)"><img src="/assets/delete.png" /></button>
     </li>
   </ul>
   <ul *ngIf="status === 'notready'">
@@ -21,5 +21,5 @@
       <button><img src="/assets/delete.png" /></button>
     </li>
   </ul>
-  <button class="liste-course" routerLink="/liste-courses">Générer la liste de courses</button>
+  <button class="liste-course" (click)="genererShoppingList()">Générer la liste de courses</button>
 </div>

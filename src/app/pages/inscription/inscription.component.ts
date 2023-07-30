@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-inscription',
@@ -16,9 +17,9 @@ export class InscriptionComponent {
   registerError: string = '';
 
   registerForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    pseudo: ['', [Validators.required]]
+    email: [`${environment.email}` || '', [Validators.required, Validators.email]],
+    password: [`${environment.password}` || '', [Validators.required]],
+    pseudo: [`${environment.pseudo}` || '', [Validators.required]]
   })
 
   constructor(

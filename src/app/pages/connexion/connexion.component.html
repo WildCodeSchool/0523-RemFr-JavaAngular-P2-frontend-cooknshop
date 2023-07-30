@@ -3,9 +3,9 @@
     <form (ngSubmit)="onSubmit()">
         <fieldset [formGroup]="loginForm">
             <input type="email" formControlName="email" placeholder="Email" />
-            <input type="password" formControlName="password" placeholder="Mot de passe" />
+            <input type="password" formControlName="password" placeholder="Mot de passe - 8 caractères minimum" />
         </fieldset>
-        <button type="submit" [disabled]="loginForm.invalid">C'est parti</button>
+        <button type="submit" >C'est parti</button>
     </form>
     <p>Vous n'avez pas encore de compte ? <a routerLink="/inscription">S'inscrire</a></p>
 </div>

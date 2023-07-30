@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-connexion',
@@ -16,8 +17,8 @@ export class ConnexionComponent {
   loginError: string = '';
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    email: [`${environment.email}` || '', [Validators.required, Validators.email]],
+    password: [`${environment.password}` || '', [Validators.required]],
   })
 
   constructor(
