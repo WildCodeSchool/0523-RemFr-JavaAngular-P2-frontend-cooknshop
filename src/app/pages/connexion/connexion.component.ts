@@ -17,8 +17,8 @@ export class ConnexionComponent {
   loginError: string = '';
 
   loginForm = this.fb.group({
-    email: [`${environment.email}` || '', [Validators.required, Validators.email]],
-    password: [`${environment.password}` || '', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   })
 
   constructor(

@@ -17,9 +17,9 @@ export class InscriptionComponent {
   registerError: string = '';
 
   registerForm = this.fb.group({
-    email: [`${environment.email}` || '', [Validators.required, Validators.email]],
-    password: [`${environment.password}` || '', [Validators.required]],
-    pseudo: [`${environment.pseudo}` || '', [Validators.required]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+    pseudo: ['', [Validators.required]]
   })
 
   constructor(

@@ -18,7 +18,7 @@
         <span class="titre-ingredient">{{ item.ingredient.name }}</span>
         <input class="comment" type="text" value="{{ item.comment }}" /> -->
       </div>
-      <button (click)="deleteIngredient(item.id)"><img src="/assets/delete.png" /></button>
+      <button *ngIf="status === 'ready'" (click)="deleteIngredient(item.id)"><img src="/assets/delete.png" /></button>
     </li>
   </ul>
   <!-- <button type="submit">Submit</button> -->

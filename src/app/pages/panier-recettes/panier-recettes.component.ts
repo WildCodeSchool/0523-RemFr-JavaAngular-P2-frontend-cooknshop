@@ -75,7 +75,7 @@ export class PanierRecettesComponent implements OnInit {
     if (this.utilisateur) {
       const userId = this.utilisateur.id;
 
-      this.http.post(`/shoppinglists/${userId}`, "")
+      this.http.post(environment.apiUrl + `/shoppinglists/${userId}`, "")
       .subscribe(
         {
           next: () => {
