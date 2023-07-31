@@ -3,13 +3,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class ApiCallService {
   constructor(private httpClient: HttpClient) {}
 
   public GetResponse(customURI: string): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:8080/${customURI}`);
+    return this.httpClient.get<any>(environment.apiUrl + `/${customURI}`);
   }
 
   login(email: string, password: string) {
@@ -18,7 +19,7 @@ export class ApiCallService {
       password: password,
     }
     return this.httpClient
-      .post<User>('http://localhost:8080/users/login', formData);
+      .post<User>(environment.apiUrl + '/users/login', formData);
   }
 
   register(email: string, password: string, pseudo: string) {
@@ -28,7 +29,7 @@ export class ApiCallService {
       pseudo: pseudo,
     }
     return this.httpClient
-      .post<User>('http://localhost:8080/users/register', formData);
+      .post<User>(environment.apiUrl + '/users/register', formData);
   }
 
 
