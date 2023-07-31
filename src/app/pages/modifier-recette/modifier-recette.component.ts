@@ -96,7 +96,7 @@ export class ModifierRecetteComponent {
             formData.push(ingredientData);
           }
         }
-        const url = `${environment.baseApiUrl}/recipes/${selectedRecipeId}/ingredients`;
+        const url = environment.apiUrl + `/recipes/${selectedRecipeId}/ingredients`;
         this.http.post(url, formData).subscribe((response) => {
           this.router.navigate([`/details-recette/${selectedRecipeId}`]);
         });

@@ -14,7 +14,7 @@ import { AjoutCategorieRecetteComponent } from './pages/ajout-categorie-recette/
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
-  { path: 'recherche', component: RechercheComponent },
+  { path: 'recherche/:query', component: RechercheComponent },
   { path: 'nouvelle-recette', component: NewRecetteComponent },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },

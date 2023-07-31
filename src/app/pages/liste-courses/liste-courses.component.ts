@@ -131,7 +131,7 @@ export class ListeCoursesComponent {
     const ingredient = this.myListeCourses.find((ingredient: any) => ingredient.id === rowId)
     ingredient.purchased = !purchased;
 
-    this.http.put(`${environment.baseApiUrl}/shoppinglists/ingredients/${rowId}`, ingredient)
+    this.http.put(`${environment.apiUrl}/shoppinglists/ingredients/${rowId}`, ingredient)
     .subscribe(
       {
         next: () => {
@@ -146,7 +146,7 @@ export class ListeCoursesComponent {
 
   deleteIngredient(rowId: number) {
 
-    this.http.delete(`${environment.baseApiUrl}/shoppinglists/ingredients/${rowId}`)
+    this.http.delete(`${environment.apiUrl}/shoppinglists/ingredients/${rowId}`)
     .subscribe(
       {
         next: () => {
@@ -164,7 +164,7 @@ export class ListeCoursesComponent {
     this.myShoppingList.shared = !shared
     console.log(this.myShoppingList.shared);
 
-    this.http.put(`${environment.baseApiUrl}/shoppinglists/shared/${this.myShoppingList.id}`,
+    this.http.put(`${environment.apiUrl}/shoppinglists/shared/${this.myShoppingList.id}`,
     this.myShoppingList)
     .subscribe(
       {

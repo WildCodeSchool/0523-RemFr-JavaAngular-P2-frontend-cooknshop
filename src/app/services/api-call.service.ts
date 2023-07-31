@@ -10,7 +10,7 @@ export class ApiCallService {
   constructor(private httpClient: HttpClient) {}
 
   public GetResponse(customURI: string): Observable<any> {
-    return this.httpClient.get<any>(`${environment.baseApiUrl}/${customURI}`);
+    return this.httpClient.get<any>(environment.apiUrl + `/${customURI}`);
   }
 
   login(email: string, password: string, customURI: string) {
@@ -19,7 +19,7 @@ export class ApiCallService {
       password: password,
     }
     return this.httpClient
-      .post<User>(`${environment.baseApiUrl}/${customURI}`, formData);
+      .post<User>(environment.apiUrl + '/users/login', formData);
   }
 
   register(email: string, password: string, pseudo: string, customURI: string) {
@@ -29,7 +29,7 @@ export class ApiCallService {
       pseudo: pseudo,
     }
     return this.httpClient
-      .post<User>(`${environment.baseApiUrl}/${customURI}`, formData);
+      .post<User>(environment.apiUrl + '/users/register', formData);
   }
 
 

@@ -54,7 +54,7 @@ export class PanierRecettesComponent implements OnInit {
         (donneesUtilisateur: any) => {
           const idPanier = donneesUtilisateur;
 
-          this.http.delete(`${environment.baseApiUrl}/cart/${idPanier}/recipe/${recipeId}`).subscribe(
+          this.http.delete(environment.apiUrl + `/cart/${idPanier}/recipe/${recipeId}`).subscribe(
             () => {
               this.initCart();
               this.toastr.success("La recette a été supprimée du panier avec succès !");
@@ -75,11 +75,11 @@ export class PanierRecettesComponent implements OnInit {
     if (this.utilisateur) {
       const userId = this.utilisateur.id;
 
-      this.http.post(`${environment.baseApiUrl}/shoppinglists/${userId}`, "")
+      this.http.post(`/shoppinglists/${userId}`, "")
       .subscribe(
         {
           next: () => {
-            this.router.navigate(['/liste-courses'])
+            this.router.navigate([environment.apiUrl + '/liste-courses'])
             this.toastr.success("La liste de course a bien été créée");
             },
           error: () => {

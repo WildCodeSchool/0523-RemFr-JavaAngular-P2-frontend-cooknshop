@@ -82,7 +82,7 @@ export class NewRecetteComponent implements OnInit {
         });
       }
 
-      this.http.post(`${environment.baseApiUrl}/recipes`, formData).subscribe((response) => {
+      this.http.post(environment.apiUrl + "/recipes", formData).subscribe((response) => {
         this.router.navigate(['/ajout-categorie']);
       });
     }

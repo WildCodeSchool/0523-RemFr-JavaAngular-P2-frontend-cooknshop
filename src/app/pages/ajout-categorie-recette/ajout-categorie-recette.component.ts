@@ -64,7 +64,7 @@ export class AjoutCategorieRecetteComponent {
             recipeCategories: selectedCategoryId,
           };
 
-          this.http.post(`${environment.baseApiUrl}/recipes/${selectedRecipeId}/categories/${selectedCategoryId}/recipecategories`, formData).subscribe((response) => {
+          this.http.post(environment.apiUrl + `/recipes/${selectedRecipeId}/categories/${selectedCategoryId}/recipecategories`, formData).subscribe((response) => {
             this.router.navigate(['/ajout-ingredient']);
           });
         }

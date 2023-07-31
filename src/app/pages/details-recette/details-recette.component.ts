@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-details-recette',
@@ -48,7 +49,7 @@ export class DetailsRecetteComponent {
         (donneesUtilisateur: any) => {
           const idPanier = donneesUtilisateur;
           const nbPersonnes = this.nbPersonnesInputRef.nativeElement.value;
-          this.http.post(`http://localhost:8080/cart/${idPanier}/addRecipe/${this.id}?nb_person=${nbPersonnes}`, {}).subscribe(
+          this.http.post(environment.apiUrl + `/cart/${idPanier}/addRecipe/${this.id}?nb_person=${nbPersonnes}`, {}).subscribe(
             (reponse: any) => {
               this.toastr.success("Recette ajoutée au panier avec succès !");
               this.recetteAjouteeAuPanier = true;
