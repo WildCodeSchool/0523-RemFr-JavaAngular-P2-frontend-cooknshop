@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details-recette',
@@ -19,10 +19,16 @@ export class DetailsRecetteComponent {
   public id = 0;
   public utilisateur: any;
   public cartId: any;
-  public recetteAjouteeAuPanier: boolean = false;
+  public recetteAjouteeAuPanier = false;
   @ViewChild('nbPersonnesInput', { static: false }) nbPersonnesInputRef!: ElementRef<HTMLInputElement>;
 
-  constructor(private apiCallService: ApiCallService, private route: ActivatedRoute, private http: HttpClient, private toastr: ToastrService, private router: Router) {
+  constructor(
+    private apiCallService: ApiCallService,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
     const userData = localStorage.getItem('user');
     this.utilisateur = userData ? JSON.parse(userData) : null;
   }
@@ -49,24 +55,25 @@ export class DetailsRecetteComponent {
         (donneesUtilisateur: any) => {
           const idPanier = donneesUtilisateur;
           const nbPersonnes = this.nbPersonnesInputRef.nativeElement.value;
-          this.http.post(environment.apiUrl + `/cart/${idPanier}/addRecipe/${this.id}?nb_person=${nbPersonnes}`, {}).subscribe(
-            (reponse: any) => {
-              this.toastr.success("Recette ajoutée au panier avec succès !");
-              this.recetteAjouteeAuPanier = true;
-            },
-            (erreur: any) => {
-              this.toastr.error("Erreur lors de l\'ajout de la recette au panier");
-            }
-          );
+          this.http
+            .post(environment.apiUrl + `/cart/${idPanier}/addRecipe/${this.id}?nb_person=${nbPersonnes}`, {})
+            .subscribe(
+              (reponse: any) => {
+                this.toastr.success('Recette ajoutée au panier avec succès !');
+                this.recetteAjouteeAuPanier = true;
+              },
+              (erreur: any) => {
+                this.toastr.error("Erreur lors de l'ajout de la recette au panier");
+              }
+            );
         },
         (erreur: any) => {
-          this.toastr.error("Erreur lors de la récupération des informations de l\'utilisateur");
+          this.toastr.error("Erreur lors de la récupération des informations de l'utilisateur");
         }
       );
-    }
-    else {
-      this.toastr.error("Erreur lors de la récupération des informations de l\'utilisateur");
-      this.router.navigate(["connexion"]);
+    } else {
+      this.toastr.error("Erreur lors de la récupération des informations de l'utilisateur");
+      this.router.navigate(['connexion']);
     }
   }
 }

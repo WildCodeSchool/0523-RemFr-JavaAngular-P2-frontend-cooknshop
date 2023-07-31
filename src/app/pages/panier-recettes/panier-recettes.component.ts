@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-panier-recettes',
@@ -15,7 +15,13 @@ export class PanierRecettesComponent implements OnInit {
   public status = 'notready';
   public myCart: any;
   public utilisateur: any;
-  constructor(private http: HttpClient, private ApiCallService: ApiCallService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private ApiCallService: ApiCallService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
     const userData = localStorage.getItem('user');
     this.utilisateur = userData ? JSON.parse(userData) : null;
   }
@@ -26,25 +32,21 @@ export class PanierRecettesComponent implements OnInit {
     });
     if (this.utilisateur != null) {
       const idUtilisateur = this.utilisateur.id;
-    }
-    else {
+    } else {
       this.toastr.error("Erreur, vous n'êtes pas connecté");
-      this.router.navigate(["connexion"]);
+      this.router.navigate(['connexion']);
     }
   }
 
   initCart() {
     const idUser = this.utilisateur.id;
-    this.ApiCallService.GetResponse(`cart/user/${idUser}`).subscribe(
-      (donneesUtilisateur: any) => {
-        const idPanier = donneesUtilisateur;
-        this.ApiCallService.GetResponse(`cart/${idPanier}`).subscribe((data: any) => {
-          this.myCart = data;
-          this.status = 'ready';
-        })
-
+    this.ApiCallService.GetResponse(`cart/user/${idUser}`).subscribe((donneesUtilisateur: any) => {
+      const idPanier = donneesUtilisateur;
+      this.ApiCallService.GetResponse(`cart/${idPanier}`).subscribe((data: any) => {
+        this.myCart = data;
+        this.status = 'ready';
       });
-
+    });
   }
   supprimerRecetteDuPanier(recipeId: number) {
     if (this.utilisateur) {
@@ -57,10 +59,10 @@ export class PanierRecettesComponent implements OnInit {
           this.http.delete(environment.apiUrl + `/cart/${idPanier}/recipe/${recipeId}`).subscribe(
             () => {
               this.initCart();
-              this.toastr.success("La recette a été supprimée du panier avec succès !");
+              this.toastr.success('La recette a été supprimée du panier avec succès !');
             },
             (erreur: any) => {
-              this.toastr.error("Erreur lors de la suppression de la recette du panier");
+              this.toastr.error('Erreur lors de la suppression de la recette du panier');
             }
           );
         },

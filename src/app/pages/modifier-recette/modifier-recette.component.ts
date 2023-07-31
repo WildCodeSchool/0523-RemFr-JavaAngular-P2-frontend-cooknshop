@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modifier-recette',
   templateUrl: './modifier-recette.component.html',
-  styleUrls: ['./modifier-recette.component.scss']
+  styleUrls: ['./modifier-recette.component.scss'],
 })
 export class ModifierRecetteComponent {
   formulaire: FormGroup;
@@ -16,7 +16,12 @@ export class ModifierRecetteComponent {
   allIngredient: any[] = [];
   allUnits: any[] = [];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private ApiCallService: ApiCallService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private ApiCallService: ApiCallService,
+    private router: Router
+  ) {
     this.formulaire = this.formBuilder.group({
       recette: ['', Validators.required],
       recipeIngredient: this.formBuilder.array([]),
@@ -30,25 +35,19 @@ export class ModifierRecetteComponent {
   }
 
   initRecipes() {
-    this.ApiCallService.GetResponse('recipes').subscribe(
-      (recipe) => {
-        this.allRecipes = recipe;
-      }
-    );
+    this.ApiCallService.GetResponse('recipes').subscribe((recipe) => {
+      this.allRecipes = recipe;
+    });
   }
   initIngredients() {
-    this.ApiCallService.GetResponse('ingredients').subscribe(
-      (ingredient) => {
-        this.allIngredient = ingredient;
-      }
-    );
+    this.ApiCallService.GetResponse('ingredients').subscribe((ingredient) => {
+      this.allIngredient = ingredient;
+    });
   }
   initUnits() {
-    this.ApiCallService.GetResponse('units').subscribe(
-      (unit) => {
-        this.allUnits = unit;
-      }
-    );
+    this.ApiCallService.GetResponse('units').subscribe((unit) => {
+      this.allUnits = unit;
+    });
   }
 
   get recipeIngredient(): FormArray {
@@ -59,7 +58,7 @@ export class ModifierRecetteComponent {
     const nouvelIngredient = this.formBuilder.group({
       nom: ['', Validators.required],
       quantite: ['', Validators.required],
-      unite: ['', Validators.required]
+      unite: ['', Validators.required],
     });
 
     this.recipeIngredient.push(nouvelIngredient);
@@ -72,7 +71,7 @@ export class ModifierRecetteComponent {
   enregistrer() {
     if (this.formulaire && this.formulaire.valid) {
       const selectedRecipeName = this.formulaire.value.recette;
-      const selectedRecipe = this.allRecipes.find(recipe => recipe.title === selectedRecipeName);
+      const selectedRecipe = this.allRecipes.find((recipe) => recipe.title === selectedRecipeName);
 
       if (selectedRecipe) {
         const selectedRecipeId = selectedRecipe.id;
@@ -81,16 +80,18 @@ export class ModifierRecetteComponent {
         for (const ingredientGroup of ingredientsFormArray.controls) {
           const quantity = ingredientGroup.get('quantite')?.value;
           const selectedIngredientName = ingredientGroup.get('nom')?.value;
-          const selectedIngredient = this.allIngredient.find(ingredient => ingredient.name === selectedIngredientName);
+          const selectedIngredient = this.allIngredient.find(
+            (ingredient) => ingredient.name === selectedIngredientName
+          );
           const selectedUnitName = ingredientGroup.get('unite')?.value;
-          const selectedUnit = this.allUnits.find(unit => unit.name === selectedUnitName);
+          const selectedUnit = this.allUnits.find((unit) => unit.name === selectedUnitName);
 
           if (selectedIngredient && selectedUnit) {
             const ingredientData = {
               quantity: quantity,
               recipe: selectedRecipeId,
               unit: { id: selectedUnit.id },
-              ingredient: { id: selectedIngredient.id }
+              ingredient: { id: selectedIngredient.id },
             };
 
             formData.push(ingredientData);

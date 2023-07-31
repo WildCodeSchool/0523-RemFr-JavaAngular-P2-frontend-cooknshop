@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ApiCallService {
@@ -17,9 +17,8 @@ export class ApiCallService {
     const formData = {
       email: email,
       password: password,
-    }
-    return this.httpClient
-      .post<User>(environment.apiUrl + '/users/login', formData);
+    };
+    return this.httpClient.post<User>(environment.apiUrl + '/users/login', formData);
   }
 
   register(email: string, password: string, pseudo: string) {
@@ -27,10 +26,7 @@ export class ApiCallService {
       email: email,
       password: password,
       pseudo: pseudo,
-    }
-    return this.httpClient
-      .post<User>(environment.apiUrl + '/users/register', formData);
+    };
+    return this.httpClient.post<User>(environment.apiUrl + '/users/register', formData);
   }
-
-
 }
