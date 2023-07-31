@@ -12,13 +12,16 @@ export class ApiCallService {
     return this.httpClient.get<any>(`http://localhost:8080/${customURI}`);
   }
 
+  public PutResponse(customURI: string, postData: any): Observable<any> {
+    return this.httpClient.post<any>(`http://localhost:8080/${customURI}`, postData);
+  }
+
   login(email: string, password: string) {
     const formData = {
       email: email,
       password: password,
-    }
-    return this.httpClient
-      .post<User>('http://localhost:8080/users/login', formData);
+    };
+    return this.httpClient.post<User>('http://localhost:8080/users/login', formData);
   }
 
   register(email: string, password: string, pseudo: string) {
@@ -26,10 +29,7 @@ export class ApiCallService {
       email: email,
       password: password,
       pseudo: pseudo,
-    }
-    return this.httpClient
-      .post<User>('http://localhost:8080/users/register', formData);
+    };
+    return this.httpClient.post<User>('http://localhost:8080/users/register', formData);
   }
-
-
 }
