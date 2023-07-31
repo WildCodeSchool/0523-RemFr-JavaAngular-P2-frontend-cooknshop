@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-inscription',
@@ -33,7 +34,7 @@ export class InscriptionComponent {
     const password = this.registerForm.value.password || '';
     const pseudo = this.registerForm.value.pseudo || '';
     this.apiCallService
-      .register(email, password, pseudo)
+      .register(email, password, pseudo, 'users/register')
       .subscribe(
         {
           next: (response) => {
@@ -44,9 +45,9 @@ export class InscriptionComponent {
           error: (error: HttpErrorResponse) => {
             if (error.status === HttpStatusCode.Unauthorized
                 || error.status === HttpStatusCode.BadRequest) {
-              this.registerError = "Les identifiants sont incorrects";
+              this.toastr.warning("Cette adresse email existe déjà");
             } else {
-              this.registerError = "Une erreur survenue";
+              this.toastr.error("Une erreur survenue");
             }
           }
         }

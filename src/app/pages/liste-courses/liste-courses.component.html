@@ -1,24 +1,35 @@
 <div class="container">
-    <h3>Liste de courses</h3>
+  <h3>Liste de courses</h3>
 
-    <ul>
-        <li>
-            <p class="titre-ingredient">Farine</p>
-            <div>
-                <input type="text" value="500">
-                <select name="unit" id="unit">
-                    <option value="kg">kg</option>
-                    <option value="g">g</option>
-                    <option value="mg">mg</option>
-                </select>
-            </div>
-            <button><img src="/assets/delete.png"></button>
-        </li>
-    </ul>
-    <div class="div-share">
-        <p>Partager la liste de course : </p>
-        <input type="checkbox" class="shared">
-        <button class="btn-share">Partager la liste<img src="/assets/partager.png"></button>
-    </div>
-    
+  <!-- <form [formGroup]="ingredientForm" (ngSubmit)="submit()"> -->
+
+  <ul>
+    <li *ngFor="let item of myListeCourses; let i = index">
+      <div>
+        <input type="checkbox" class="purchased" (click)="togglePurchased(item.id, item.purchased)" [checked]="item.purchased">
+        {{ item.ingredient.name }} : {{ item.quantity }}
+        <span *ngIf="item.unit.name !== 'unités'">{{ item.unit.name }}</span>
+        <!-- <input type="number" value="{{ item.quantity }}" />
+        <span class="titre-ingredient">{{ item.unit.name }}</span>
+        <select name="unit">
+          <option [ngValue]="null" disabled>Select Unit</option>
+          <option *ngFor="let unit of units" [ngValue]="item.unit.id">{{ item.unit.name }}</option>
+        </select>
+        <span class="titre-ingredient">{{ item.ingredient.name }}</span>
+        <input class="comment" type="text" value="{{ item.comment }}" /> -->
+      </div>
+      <button *ngIf="status === 'ready'" (click)="deleteIngredient(item.id)"><img src="/assets/delete.png" /></button>
+    </li>
+  </ul>
+  <!-- <button type="submit">Submit</button> -->
+  <!-- </form> -->
+
+  <div class="div-share" *ngIf="status === 'ready'">
+    <p>Partager la liste de course :</p>
+    <input type="checkbox" class="shared" (click)="toggleShared(myShoppingList.shared)" [checked]="myShoppingList.shared"/>
+    <button class="btn-share">
+      Partager la liste
+      <img src="/assets/partager.png" />
+    </button>
+  </div>
 </div>
