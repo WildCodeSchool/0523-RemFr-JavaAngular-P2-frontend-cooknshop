@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-panier-recettes',
@@ -53,7 +54,7 @@ export class PanierRecettesComponent implements OnInit {
         (donneesUtilisateur: any) => {
           const idPanier = donneesUtilisateur;
 
-          this.http.delete(`http://localhost:8080/cart/${idPanier}/recipe/${recipeId}`).subscribe(
+          this.http.delete(environment.apiUrl + `/cart/${idPanier}/recipe/${recipeId}`).subscribe(
             () => {
               this.initCart();
               this.toastr.success("La recette a été supprimée du panier avec succès !");
