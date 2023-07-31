@@ -4,7 +4,7 @@ FROM node:lts-slim as build
 WORKDIR /build
 COPY . .
 ENV PATH ./node_modules/.bin:$PATH
-RUN npm ci
+RUN npm install
 RUN ng build --configuration production --output-path=dist
 
 # production environment
