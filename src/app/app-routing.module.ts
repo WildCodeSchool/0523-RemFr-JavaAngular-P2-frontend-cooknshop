@@ -21,8 +21,9 @@ const routes: Routes = [
   { path: 'details-recette/:id', component: DetailsRecetteComponent },
   { path: 'panier-recettes', component: PanierRecettesComponent },
   { path: 'liste-courses', component: ListeCoursesComponent },
-  { path: 'ajout-ingredient', component: ModifierRecetteComponent },
-  { path: 'ajout-categorie', component: AjoutCategorieRecetteComponent },
+  { path: 'liste-courses/:id', component: ListeCoursesComponent },
+  { path: 'ajout-ingredient', component: ModifierRecetteComponent},
+  { path: 'ajout-categorie', component: AjoutCategorieRecetteComponent},
 ];
 
 @NgModule({

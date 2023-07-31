@@ -72,4 +72,23 @@ export class PanierRecettesComponent implements OnInit {
       );
     }
   }
+
+  genererShoppingList() {
+    if (this.utilisateur) {
+      const userId = this.utilisateur.id;
+
+      this.http.post(environment.apiUrl + `/shoppinglists/${userId}`, "")
+      .subscribe(
+        {
+          next: () => {
+            this.router.navigate([environment.apiUrl + '/liste-courses'])
+            this.toastr.success("La liste de course a bien été créée");
+            },
+          error: () => {
+              this.toastr.warning("Erreur lors lors de la création de la liste de course");
+            }
+        }
+      );
+      }
+  }
 }

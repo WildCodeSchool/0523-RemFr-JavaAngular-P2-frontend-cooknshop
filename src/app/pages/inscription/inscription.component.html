@@ -4,8 +4,8 @@
         <fieldset [formGroup]="registerForm">
             <input type="email" formControlName="email" placeholder="Email" />
             <input type="password" formControlName="password" placeholder="Mot de passe" />
-            <input type="pseudo" formControlName="pseudo" placeholder="Pseudo" />
+            <input type="text" formControlName="pseudo" placeholder="Pseudo" />
         </fieldset>
-        <button type="submit">Je m'inscris</button>
+        <button type="submit" [disabled]="registerForm.invalid">Je m'inscris</button>
     </form>
 </div>

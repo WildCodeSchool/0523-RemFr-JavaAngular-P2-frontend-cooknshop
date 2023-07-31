@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-connexion',
@@ -33,7 +34,7 @@ export class ConnexionComponent {
     const password = this.loginForm.value.password || '';
     localStorage.removeItem('user');
     this.apiCallService
-      .login(email, password)
+      .login(email, password, 'users/login')
       .subscribe(
         {
           next: (response) => {
@@ -45,9 +46,9 @@ export class ConnexionComponent {
           error: (error: HttpErrorResponse) => {
             if (error.status === HttpStatusCode.Unauthorized
                 || error.status === HttpStatusCode.BadRequest) {
-              this.loginError = "Les identifiants sont incorrects";
+              this.toastr.warning("Les identifiants sont incorrects");
             } else {
-              this.loginError = "Une erreur survenue";
+              this.toastr.error("Une erreur survenue");
             }
           }
         }

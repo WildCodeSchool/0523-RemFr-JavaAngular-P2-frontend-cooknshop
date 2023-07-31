@@ -13,7 +13,7 @@ export class ApiCallService {
     return this.httpClient.get<any>(environment.apiUrl + `/${customURI}`);
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, customURI: string) {
     const formData = {
       email: email,
       password: password,
@@ -21,7 +21,7 @@ export class ApiCallService {
     return this.httpClient.post<User>(environment.apiUrl + '/users/login', formData);
   }
 
-  register(email: string, password: string, pseudo: string) {
+  register(email: string, password: string, pseudo: string, customURI: string) {
     const formData = {
       email: email,
       password: password,
