@@ -13,7 +13,9 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ListeCoursesComponent {
   public status = 'notready';
-  public myList: any;
+  public myListeCourses: any;
+  public myShoppingList: any;
+  public shoppingListId: any;
   public user: any;
   public ingredients: any[] = [];
   units: any[] = [];
@@ -42,24 +44,66 @@ export class ListeCoursesComponent {
     }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.initList();
-    });
-    if (this.user != null) {
-      const userId = this.user.id;
+    this.shoppingListId = this.route.snapshot.paramMap.get("id");
+    console.log(this.shoppingListId);
+
+    if (this.shoppingListId) {
+      this.initShoppingList(parseInt(this.shoppingListId));
+    } else {
+      this.route.params.subscribe((params) => {
+        this.initList();
+      });
+      if (this.user != null) {
+        const userId = this.user.id;
+      }
+      else {
+        this.toastr.error("Attention, vous devez connecté pour la visualiser");
+        this.router.navigate(["connexion"]);
+      }
+      this.initIngredients;
+      this.initUnits;
     }
-    else {
-      this.toastr.error("Attention, vous devez connecté pour la visualiser");
-      this.router.navigate(["connexion"]);
-    }
-    this.initIngredients;
-    this.initUnits;
+  }
+
+  initShoppingList(shoppingListId: number) {
+    this.ApiCallService.GetResponse(`shoppinglists/${shoppingListId}/shared`)
+    .subscribe(
+      {
+        next: (data: any) => {
+          this.myShoppingList = data;
+          if (this.myShoppingList.shared) {
+            this.ApiCallService.GetResponse(`shoppinglists/${parseInt(this.shoppingListId)}/ingredients`).subscribe((data: any) => {
+              this.myListeCourses = data;
+            })
+          } else {
+            if (this.user === null) {
+              this.toastr.warning("Cette liste de course n'est pas accessible");
+            }
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.NotFound
+              || error.status === HttpStatusCode.BadRequest) {
+            this.toastr.warning("Cette liste de course n'existe pas");
+          } else {
+            this.toastr.error("Une erreur survenue");
+          }
+        }
+      }
+    )
   }
 
   initList() {
     this.ApiCallService.GetResponse(`shoppinglists/${this.user.id}`).subscribe((data: any) => {
-      this.myList = data;
+      this.myListeCourses = data;
+      this.initShoppingList(this.myListeCourses[0].shoppingListIngredient.id)
       this.status = 'ready';
+    })
+  }
+
+  initUser() {
+    this.ApiCallService.GetResponse(`users/${this.user.id}`).subscribe((data: any) => {
+      this.user = data;
     })
   }
 
@@ -84,7 +128,7 @@ export class ListeCoursesComponent {
   // }
 
   togglePurchased(rowId: number, purchased: boolean){
-    const ingredient = this.myList.find((ingredient: any) => ingredient.id === rowId)
+    const ingredient = this.myListeCourses.find((ingredient: any) => ingredient.id === rowId)
     ingredient.purchased = !purchased;
 
     this.http.put(`${environment.baseApiUrl}/shoppinglists/ingredients/${rowId}`, ingredient)
@@ -114,6 +158,28 @@ export class ListeCoursesComponent {
           }
       }
     );
+  }
 
+  toggleShared(shared: boolean){
+    this.myShoppingList.shared = !shared
+    console.log(this.myShoppingList.shared);
+
+    this.http.put(`${environment.baseApiUrl}/shoppinglists/shared/${this.myShoppingList.id}`,
+    this.myShoppingList)
+    .subscribe(
+      {
+        next: () => {
+          if (this.myShoppingList.shared) {
+            this.toastr.success(`La liste de course est accessible à l'adresse http://localhost/liste-courses/${this.myShoppingList.id}`);
+          } else {
+            this.toastr.warning("La liste de course n'est plus accessible");
+          }
+          this.initList();
+          },
+        error: () => {
+            this.toastr.warning("Erreur lors du changement de shared");
+          }
+      }
+    );
   }
 }
