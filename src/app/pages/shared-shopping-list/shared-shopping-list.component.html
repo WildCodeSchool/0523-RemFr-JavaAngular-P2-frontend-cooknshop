@@ -1,0 +1,14 @@
+<div class="container">
+  <h3>Liste de courses</h3>
+
+  <ul>
+    <li *ngFor="let item of myListeCourses; let i = index">
+      <div class="test">
+        <input type="checkbox" (click)="togglePurchased(item.id, item.purchased)" [checked]="item.purchased">
+        <span>{{ item.ingredient.name }} :&nbsp;</span>
+        <span class="number">{{ item.quantity }}</span>
+        <span *ngIf="item.unit.name !== 'unités'">{{ item.unit.name }}</span>
+      </div>
+    </li>
+  </ul>
+</div>

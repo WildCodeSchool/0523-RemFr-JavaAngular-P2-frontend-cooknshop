@@ -28,6 +28,7 @@ import { AjoutCategorieRecetteComponent } from './pages/ajout-categorie-recette/
 
 import { ToastrModule } from 'ngx-toastr';
 import { provideToastr } from 'ngx-toastr';
+import { SharedShoppingListComponent } from './pages/shared-shopping-list/shared-shopping-list.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { provideToastr } from 'ngx-toastr';
     ListeCoursesComponent,
     ModifierRecetteComponent,
     AjoutCategorieRecetteComponent,
+    SharedShoppingListComponent,
   ],
   imports: [
     BrowserAnimationsModule,
